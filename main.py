@@ -41,15 +41,15 @@ def goto_page_1():
 def set_text(num:int):
     global feet_force
     feet_force = feet_force*10 + num
-    #feet_force_diasplay.config(text="{}".format(feet_force)) 
-    feet_force_diasplay = tk.Label(page1, text=feet_force).grid(row=1,column=3)
+    #feet_force_display.config(text="{}".format(feet_force)) 
+    feet_force_display = tk.Label(page1, text=feet_force).grid(row=1,column=3)
     print(feet_force)
 
 # makes feetforce 0
 def clear():
     global feet_force
     feet_force=0
-    feet_force_diasplay = tk.Label(page1, text="0").grid(row=1,column=3)
+    feet_force_display = tk.Label(page1, text="0").grid(row=1,column=3)
 
 # felt usefull might delete later
 def show_feet_force():
@@ -74,7 +74,7 @@ page2 = tk.Frame(root)
 ############# PAGE 1 ##############
 heading_pg1 = tk.Label(page1,text = "Enter Feet Force:")
 heading_pg1.grid(row=1,column=0)
-feet_force_diasplay = tk.Label(page1, text=feet_force if feet_force !=0 else "0").grid(row=1,column=3)
+feet_force_display = tk.Label(page1, text=feet_force if feet_force !=0 else "0").grid(row=1,column=3)
 
 # number input buttons
 tk.Button(page1, text="1", command=lambda: set_text(1),height=1, width=7).grid(row=5, column=0)
