@@ -1,6 +1,7 @@
 import tkinter as tk 
 from tkinter import ttk 
 from matplotlib.figure import Figure
+import matplotlib.animation as animation
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 feet_force=0
 
@@ -9,8 +10,13 @@ LARGEFONT =("Verdana", 35)
 time = [1,2,3,4,5,6,7,8]
 feet = [5,5,5,5,5.1,5.6,5.7,60]
 
+def live_input(data):
+    global feet
+    feet.append(data)
+
 # plot
-def plot(feet = [5,5,5,5,5.1,5.6,5.7,60]):
+def plot():
+    global feet
     fig = Figure(figsize=(3,3), dpi=200)
     plot1 = fig.add_subplot(111)
     plot1.plot(feet)
