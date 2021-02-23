@@ -10,27 +10,54 @@ LARGEFONT =("Verdana", 35)
 time = [1,2,3,4,5,6,7,8]
 feet = [5,5,5,5,5.1,5.6,5.7,60]
 
+f = Figure(figsize=(5,5), dpi=100)
+a = f.add_subplot(111)
+
+
 def live_input(data):
     global feet
     feet.append(data)
 
 # plot
+def animate(i):
+    pullData = open("sampleText.txt","r").read()
+    dataList = pullData.split('\n')
+    xList = []
+    yList = []
+    for eachLine in dataList:
+        if len(eachLine) > 1:
+            x, y = eachLine.split(',')
+            xList.append(int(x))
+            yList.append(int(y))
+
+    a.clear()
+    a.plot(xList, yList)
+'''
 def plot():
     global feet
-    fig = Figure(figsize=(3,3), dpi=200)
-    plot1 = fig.add_subplot(111)
-    plot1.plot(feet)
 
-    canvas = FigureCanvasTkAgg(fig, master=page2)
+    ani = animation.FuncAnimation(f, animate, interval=1000)
+    # fig = Figure(figsize=(3,3), dpi=200)
+    # plot1 = fig.add_subplot(111)
+    # plot1.plot(feet)
+    canvas = FigureCanvasTkAgg(f, master=page2)
     canvas.draw()
-    # canvas.get_tk_widget().grid(row=2, column=0)
-    canvas.get_tk_widget().pack()
+    canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
 
-    toolbar = NavigationToolbar2Tk(canvas,page2)
+    toolbar = NavigationToolbar2Tk(canvas,window=page2)
     toolbar.update()
+    canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+    # canvas = FigureCanvasTkAgg(f, master=page2)
+    # canvas.draw()
+    # canvas.get_tk_widget().pack()
     # canvas.get_tk_widget().grid(row=2, column=0)
-    canvas.get_tk_widget().pack()
+    # canvas.get_tk_widget().pack()
 
+    # toolbar = NavigationToolbar2Tk(canvas,page2)
+    # toolbar.update()
+    # canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+    # canvas.get_tk_widget().grid(row=2, column=0)
+'''
 # to go to page 2 from anywhere 
 def goto_page_2():
         page1.forget()
@@ -110,7 +137,15 @@ heading_pg2 = tk.Label(page2,text = "GRAPH")
 heading_pg2.pack()
 
 # graph vaala part
-plot()
+# plot()
+
+canvas = FigureCanvasTkAgg(f, master=page2)
+canvas.draw()
+canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+
+toolbar = NavigationToolbar2Tk(canvas,window=page2)
+toolbar.update()
+canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
 # button to go back to page 1 (might delete later)
 # tk.Button(page2, text="page 1",command=goto_page_1,height=1, width=7).grid(row=1,column=0)
@@ -121,5 +156,6 @@ tk.Button(page2, text="<- Back",command=goto_page_1,height=1, width=7).pack()
 tk.Button(page2,text="STOP",bg="red",command=stop, height=2, width=7).pack()
 
 page2.forget()
+ani = animation.FuncAnimation(f, animate, interval=1000)
 
 root.mainloop()
