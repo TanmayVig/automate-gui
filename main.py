@@ -15,11 +15,16 @@ a = f.add_subplot(111)
 
 
 def live_input(data):
+    """
+    take live input from feet force.
+    """
     global feet
     feet.append(data)
 
-# plot
 def animate(i):
+    """
+    plot
+    """
     pullData = open("sampleText.txt","r").read()
     dataList = pullData.split('\n')
     xList = []
@@ -32,46 +37,29 @@ def animate(i):
 
     a.clear()
     a.plot(xList, yList)
-'''
-def plot():
-    global feet
-
-    ani = animation.FuncAnimation(f, animate, interval=1000)
-    # fig = Figure(figsize=(3,3), dpi=200)
-    # plot1 = fig.add_subplot(111)
-    # plot1.plot(feet)
-    canvas = FigureCanvasTkAgg(f, master=page2)
-    canvas.draw()
-    canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
-
-    toolbar = NavigationToolbar2Tk(canvas,window=page2)
-    toolbar.update()
-    canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-    # canvas = FigureCanvasTkAgg(f, master=page2)
-    # canvas.draw()
-    # canvas.get_tk_widget().pack()
-    # canvas.get_tk_widget().grid(row=2, column=0)
-    # canvas.get_tk_widget().pack()
-
-    # toolbar = NavigationToolbar2Tk(canvas,page2)
-    # toolbar.update()
-    # canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-    # canvas.get_tk_widget().grid(row=2, column=0)
-'''
-# to go to page 2 from anywhere 
+ 
 def goto_page_2():
-        page1.forget()
-        page2.pack(fill="both", expand=1)
-        # page1.forget()
+    """
+    to go to page 2 from anywhere
+    """
+    page1.forget()
+    page2.pack(fill="both", expand=1)
+    # page1.forget()
 
 # to go to page 1 from anywhere
 def goto_page_1():
-        page2.forget()
-        page1.pack(fill="both", expand=1)
-        # page2.forget()
+    """
+    switch to page 1.
+    """
+    page2.forget()
+    page1.pack(fill="both", expand=1)
+    # page2.forget()
 
 # changes feetforce according to input
 def set_text(num:int):
+    """
+    set feetforce input by user
+    """
     global feet_force
     feet_force = feet_force*10 + num
     #feet_force_display.config(text="{}".format(feet_force)) 
@@ -80,19 +68,25 @@ def set_text(num:int):
 
 # makes feetforce 0
 def clear():
+    """
+    clear feet force
+    """
     global feet_force
     feet_force=0
     feet_force_display = tk.Label(page1, text="0").grid(row=1,column=3)
 
 # felt usefull might delete later
 def show_feet_force():
+    """
+    display feet force
+    """
     global feet_force
     return feet_force
 
 # function to stop the process (on page 2)
 def stop():
     '''
-    do something
+    destroy all windows.
     '''
     root.destroy()
 
